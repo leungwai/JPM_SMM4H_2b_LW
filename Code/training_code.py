@@ -134,21 +134,9 @@ def testing(model, testing_loader, labels_to_ids, device):
 
             tmp_eval_accuracy = accuracy_score(labels.cpu().numpy(), predictions.cpu().numpy())
             eval_accuracy += tmp_eval_accuracy
-            # print("Labels:")
-            # print(labels)
-
-            # print("Predictions")
-            # print(predictions)
-            # testing net f1 accuracy and individual precision and recall 
 
             test_label = [id.item() for id in labels]
             test_pred = [id.item() for id in predictions]
-
-            # print("Test Labels:")
-            # print(test_label)
-
-            # print("Test Predictions")
-            # print(test_pred)
 
             batch_prediction_data = pd.DataFrame(zip(tweet_ids, orig_sentences, topics, test_label, test_pred), columns=['id', 'text', 'Claim', 'Orig', 'Premise'])
             
@@ -200,46 +188,15 @@ def calculate_f1(prediction_data):
     saho_df = prediction_data.loc[prediction_data['Claim'] == 'stay at home orders']
     sc_df = prediction_data.loc[prediction_data['Claim'] == 'school closures']
 
-    # print("fm_df")
-    # print(fm_df)
-
-    # print("saho_df")
-    # print(saho_df)
-
-    # print("sc_df")
-    # print(sc_df)
-
     # splitting data into label and prediction of respective classes
     fm_label = fm_df['Orig'].tolist()
-    # fm_label_tensor = torch.cat(fm_label)
     fm_pred = fm_df['Premise'].tolist()
-    
-    # print("fm_label")
-    # print(fm_label)
 
-    # print("fm_concat")
-    # print(fm_label_tensor)
-    
-    # print("fm_pred")
-    # print(fm_pred)
-  
     saho_label = saho_df['Orig'].tolist()
     saho_pred = saho_df['Premise'].tolist()
 
-    # print("saho_label")
-    # print(saho_label)
-
-    # print("saho_pred")
-    # print(saho_pred)
-
     sc_label = sc_df['Orig'].tolist()
     sc_pred = sc_df['Premise'].tolist()
-
-    # print("sc_label")
-    # print(sc_label)
-
-    # print("sc_pred")
-    # print(sc_pred)
 
     # running performance metrics of each class
     print("Running performance metrics")
@@ -396,7 +353,7 @@ def main(n_epochs, model_name, model_save_flag, model_save_location, model_load_
 
 
 if __name__ == '__main__':
-    n_epochs = 1
+    n_epochs = 10
     models = ['bert-base-uncased', 'roberta-base']
     
     #model saving parameters
@@ -426,7 +383,7 @@ if __name__ == '__main__':
     all_epoch_data = pd.DataFrame(index=[0,1,2,3,4], columns=models)
     
 
-    for loop_index in range(1):
+    for loop_index in range(5):
         for model_name in models:
 
             model_save_location = '../saved_models_2b/' + model_name + '/' + str(loop_index) + '/' 
@@ -470,7 +427,36 @@ if __name__ == '__main__':
 
             print("Result files saved")
 
-            quit()
+    # printing results for analysis
+    print("\n All best overall f1 score")
+    print(all_best_overall_f1_score)
+
+    print("\n All best dev acc")
+    print(all_best_dev_acc)
+
+    print("\n All best f1 score")
+    print(all_best_ind_f1_score)
+
+    print("\n All best precision")
+    print(all_best_ind_precision)
+
+    print("\n All best recall")
+    print(all_best_ind_recall)
+
+    print("\n All epoch data")
+    print(all_epoch_data)
+
+    #saving all results into tsv
+
+    os.makedirs('../results/', exist_ok=True)
+    all_best_overall_f1_score.to_csv('../results/all_best_overall_f1_score.tsv', sep='\t')
+    all_best_dev_acc.to_csv('../results/all_best_dev_acc.tsv', sep='\t')
+    all_best_ind_f1_score.to_csv('../results/all_best_ind_f1_score.tsv', sep='\t')
+    all_best_ind_precision.to_csv('../results/all_best_ind_precision.tsv', sep='\t')
+    all_best_ind_recall.to_csv('../results/all_best_ind_recall.tsv', sep='\t')
+    all_epoch_data.to_csv('../results/all_epoch_data.tsv', sep='\t')
+
+    print("Everything successfully completed")
 
     
 
