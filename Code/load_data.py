@@ -17,6 +17,8 @@ class dataset(Dataset):
         sentence = self.data[index][0]
         joined_sentnece = ' '.join(sentence)
         input_label = self.data[index][1]
+        topic = self.data[index][2]
+        tweet_id = self.data[index][3]
 
         # step 2: use tokenizer to encode sentence (includes padding/truncation up to max length)
         # BertTokenizerFast provides a handy "return_offsets_mapping" functionality for individual tokens
@@ -31,6 +33,13 @@ class dataset(Dataset):
         # step 4: turn everything into PyTorch tensors
         item = {key: torch.as_tensor(val) for key, val in encoding.items()}
         item['labels'] = torch.as_tensor(labels)
+        item['topic'] = topic
+        item['tweet_id'] = tweet_id
+        item['orig_sentence'] = sentence
+
+      #   print("Item")
+      #   print(item)
+      #   quit()
 
         return item
 
@@ -50,6 +59,7 @@ def initialize_data(tokenizer, initialization_input, input_data, labels_to_ids, 
                 }
 
     loader = DataLoader(data_split, **params)
+
 
     return loader
 

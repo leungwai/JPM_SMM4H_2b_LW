@@ -19,8 +19,12 @@ def read_task(location, split = 'train'):
                 tweet_id = row[0]
                 sentence = row[1].strip()
                 label = row[4]
-                data.append((sentence, label))
+                topic = row[2]
+                data.append((sentence, label, topic, tweet_id))
 
+    # print("Length of data")
+    # print(len(data))
+ 
     return data
 
 
