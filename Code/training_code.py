@@ -378,9 +378,6 @@ if __name__ == '__main__':
 
     # final f1 performance metric
     all_best_overall_f1_score = pd.DataFrame(index=[0,1,2,3,4], columns=models)
-
-    # epoch data
-    all_epoch_data = pd.DataFrame(index=[0,1,2,3,4], columns=models)
     
 
     for loop_index in range(5):
@@ -389,13 +386,15 @@ if __name__ == '__main__':
             model_save_location = '../saved_models_2b/' + model_name + '/' + str(loop_index) + '/' 
             model_load_location = None
 
+            epoch_save_location = '../saved_epoch_2b/' + model_name + '/' + str(loop_index) + '/' 
+            epoch_save_name = epoch_save_location + '/epoch_info.tsv'
+
             result_save_location = '../saved_data_2b/' + model_name + '/' + str(loop_index) + '/'
 
             unformatted_result_save_location = result_save_location + 'unformatted_result.tsv'
             formatted_result_save_location = result_save_location + 'formatted_result.tsv'
 
             best_prediction_result, best_dev_acc, best_test_acc, best_tb_acc, best_epoch, best_tb_epoch, best_overall_f1_score, best_ind_f1_score, best_ind_precision, best_ind_recall, epoch_data = main(n_epochs, model_name, model_save_flag, model_save_location, model_load_flag, model_load_location)
-
 
             # Getting accuracy
             all_best_dev_acc.at[loop_index, model_name] = best_dev_acc
@@ -415,7 +414,8 @@ if __name__ == '__main__':
             all_best_ind_recall.at[loop_index, model_name] = best_ind_recall
 
             # Get all epoch info 
-            all_epoch_data.at[loop_index, model_name] = epoch_data
+            os.makedirs(epoch_save_location, exist_ok=True)
+            epoch_data.to_csv(epoch_save_name, sep='\t')
 
             print("\n Prediction results")
             print(best_prediction_result)
@@ -443,9 +443,6 @@ if __name__ == '__main__':
     print("\n All best recall")
     print(all_best_ind_recall)
 
-    print("\n All epoch data")
-    print(all_epoch_data)
-
     #saving all results into tsv
 
     os.makedirs('../results/', exist_ok=True)
@@ -454,7 +451,6 @@ if __name__ == '__main__':
     all_best_ind_f1_score.to_csv('../results/all_best_ind_f1_score.tsv', sep='\t')
     all_best_ind_precision.to_csv('../results/all_best_ind_precision.tsv', sep='\t')
     all_best_ind_recall.to_csv('../results/all_best_ind_recall.tsv', sep='\t')
-    all_epoch_data.to_csv('../results/all_epoch_data.tsv', sep='\t')
 
     print("Everything successfully completed")
 
