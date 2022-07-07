@@ -140,44 +140,43 @@ def testing(model, testing_loader, labels_to_ids, device):
 
             batch_prediction_data = pd.DataFrame(zip(tweet_ids, orig_sentences, topics, test_label, test_pred), columns=['id', 'text', 'Claim', 'Orig', 'Premise'])
             
-            # temp_fm_f1_score, temp_fm_precision, temp_fm_recall, temp_saho_f1_score, temp_saho_precision, temp_saho_recall, temp_sc_f1_score, temp_sc_precision, temp_sc_recall = calculate_f1(batch_prediction_data)
+            temp_fm_f1_score, temp_fm_precision, temp_fm_recall, temp_saho_f1_score, temp_saho_precision, temp_saho_recall, temp_sc_f1_score, temp_sc_precision, temp_sc_recall = calculate_f1(batch_prediction_data)
 
-            # eval_fm_f1 += temp_fm_f1_score
-            # eval_fm_precision += temp_fm_precision
-            # eval_fm_recall += temp_fm_recall
+            eval_fm_f1 += temp_fm_f1_score
+            eval_fm_precision += temp_fm_precision
+            eval_fm_recall += temp_fm_recall
             
-            # eval_saho_f1 += temp_saho_f1_score
-            # eval_saho_precision += temp_saho_precision
-            # eval_saho_recall += temp_saho_recall
+            eval_saho_f1 += temp_saho_f1_score
+            eval_saho_precision += temp_saho_precision
+            eval_saho_recall += temp_saho_recall
             
-            # eval_sc_f1 += temp_sc_f1_score
-            # eval_sc_precision += temp_sc_precision
-            # eval_sc_recall += temp_sc_recall
-
-
+            eval_sc_f1 += temp_sc_f1_score
+            eval_sc_precision += temp_sc_precision
+            eval_sc_recall += temp_sc_recall
+    
     labels = [ids_to_labels[id.item()] for id in eval_labels]
     predictions = [ids_to_labels[id.item()] for id in eval_preds]
     
     # Calculating the f1 score, precision, and recall separately  by breaking the data apart 
     overall_prediction_data = pd.DataFrame(zip(eval_tweet_ids, eval_orig_sentences, eval_topics, labels, predictions), columns=['id', 'text', 'Claim', 'Orig', 'Premise'])
     
-    eval_fm_f1, eval_fm_precision, eval_fm_recall, eval_saho_f1, eval_saho_precision, eval_saho_recall, eval_sc_f1, eval_sc_precision, eval_sc_recall = calculate_f1(overall_prediction_data)
+    # eval_fm_f1, eval_fm_precision, eval_fm_recall, eval_saho_f1, eval_saho_precision, eval_saho_recall, eval_sc_f1, eval_sc_precision, eval_sc_recall = calculate_f1(overall_prediction_data)
     overall_fm_cr_df, overall_fm_cm_df, overall_saho_cr_df, overall_saho_cm_df, overall_sc_cr_df, overall_sc_cm_df = calculate_overall_f1(overall_prediction_data)
 
     eval_loss = eval_loss / nb_eval_steps
     eval_accuracy = eval_accuracy / nb_eval_steps
     
-    # eval_fm_f1 = eval_fm_f1 / nb_eval_steps
-    # eval_fm_precision = eval_fm_precision / nb_eval_steps
-    # eval_fm_recall = eval_fm_recall / nb_eval_steps
+    eval_fm_f1 = eval_fm_f1 / nb_eval_steps
+    eval_fm_precision = eval_fm_precision / nb_eval_steps
+    eval_fm_recall = eval_fm_recall / nb_eval_steps
 
-    # eval_saho_f1 = eval_saho_f1 / nb_eval_steps
-    # eval_saho_precision = eval_saho_precision / nb_eval_steps
-    # eval_saho_recall = eval_saho_recall / nb_eval_steps
+    eval_saho_f1 = eval_saho_f1 / nb_eval_steps
+    eval_saho_precision = eval_saho_precision / nb_eval_steps
+    eval_saho_recall = eval_saho_recall / nb_eval_steps
 
-    # eval_sc_f1 = eval_sc_f1 / nb_eval_steps
-    # eval_sc_precision = eval_sc_precision / nb_eval_steps
-    # eval_sc_recall = eval_sc_recall / nb_eval_steps
+    eval_sc_f1 = eval_sc_f1 / nb_eval_steps
+    eval_sc_precision = eval_sc_precision / nb_eval_steps
+    eval_sc_recall = eval_sc_recall / nb_eval_steps
 
     #print(f"Validation Loss: {eval_loss}")
     #print(f"Validation Accuracy: {eval_accuracy}")
