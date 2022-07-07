@@ -340,7 +340,7 @@ def main(n_epochs, model_name, model_save_flag, model_save_location, model_load_
         
         # saving overall data to folder
         
-        report_result_save_location = report_result_save_location + '/round_' + str(epoch) + '/'
+        report_result_save_location = report_result_save_location + '/epoch_' + str(epoch) + '/'
 
         os.makedirs(report_result_save_location, exist_ok=True)
         fm_cr_df_location = report_result_save_location + 'fm_classification_report.tsv'
@@ -415,7 +415,7 @@ def main(n_epochs, model_name, model_save_flag, model_save_location, model_load_
 
 
 if __name__ == '__main__':
-    n_epochs = 2
+    n_epochs = 10
     models = ['bert-base-uncased', 'roberta-base']
     
     #model saving parameters
@@ -442,7 +442,7 @@ if __name__ == '__main__':
     all_best_overall_f1_score = pd.DataFrame(index=[0,1,2,3,4], columns=models)
     
 
-    for loop_index in range(2):
+    for loop_index in range(5):
         for model_name in models:
             print('Running loop', loop_index)
             print()
