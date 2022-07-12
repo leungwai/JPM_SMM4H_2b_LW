@@ -380,7 +380,7 @@ def main(n_epochs, model_name, model_save_flag, model_save_location, model_load_
         all_epoch_data.at[epoch, 'sc_recall'] = dev_sc_recall
 
         #saving model
-        if dev_accuracy > best_dev_acc:
+        if dev_net_f1 > best_net_f1:
             best_net_f1 = dev_net_f1
             best_dev_acc = dev_accuracy
             
