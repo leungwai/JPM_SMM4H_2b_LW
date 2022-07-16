@@ -66,14 +66,14 @@ if __name__ == '__main__':
             test_print_statement = 'Testing ' + model_name + ' from loop ' + str(loop_index)
             print(test_print_statement)
 
-            model_load_location = '../15_epochs_large_model/saved_models_2a/' + model_name + '/' + str(loop_index) + '/' 
+            model_load_location = '../15_epochs_large_model/saved_models_2b/' + model_name + '/' + str(loop_index) + '/' 
             
-            result_save_location = '../15_epochs_large_model/saved_test_result_2a/' + model_name + '/' + str(loop_index) + '/'
+            result_save_location = '../15_epochs_large_model/saved_test_result_2b/' + model_name + '/' + str(loop_index) + '/'
             
             unformatted_result_save_location = result_save_location + 'unformatted_test_result.tsv'
             formatted_result_save_location = result_save_location + 'formatted_test_result.tsv'
 
-            report_result_save_location = '../15_epochs_large_model/saved_test_report_2a/' + model_name + '/' + str(loop_index)
+            report_result_save_location = '../15_epochs_large_model/saved_test_report_2b/' + model_name + '/' + str(loop_index)
 
             test_result = main(model_load_location, report_result_save_location)
 
@@ -93,6 +93,7 @@ if __name__ == '__main__':
     print("Everything successfully completed")
     print("Time to complete:", total_time) 
 
+    os.makedirs('../15_epochs_large_model/testing_statistics', exist_ok=True)
     with open('../15_epochs_large_model/testing_statistics/time.txt', 'w') as file:
         file.write("Time to complete: ")
         file.write(str(total_time))

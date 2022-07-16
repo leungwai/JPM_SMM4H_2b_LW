@@ -79,10 +79,10 @@ if __name__ == '__main__':
             test_print_statement = 'Testing ' + model_name + ' from loop ' + str(loop_index)
             print(test_print_statement)
 
-            model_load_location = '../20_epochs_large_model/saved_models_2a/' + model_name + '/' + str(loop_index) + '/' 
+            model_load_location = '../15_epochs_large_model/saved_models_2b/' + model_name + '/' + str(loop_index) + '/' 
             
-            result_save_location = '../20_epochs_large_model/eval_testing/saved_eval_test_result_2a/' + model_name + '/' + str(loop_index) + '/'
-            report_result_save_location = '../20_epochs_large_model/eval_testing/saved_eval_report_2a/' + model_name + '/' + str(loop_index) + '/'
+            result_save_location = '../15_epochs_large_model/eval_testing/saved_eval_test_result_2b/' + model_name + '/' + str(loop_index) + '/'
+            report_result_save_location = '../15_epochs_large_model/eval_testing/saved_eval_report_2b/' + model_name + '/' + str(loop_index) + '/'
 
             unformatted_result_save_location = result_save_location + 'unformatted_eval_test_result.tsv'
             formatted_result_save_location = result_save_location + 'formatted_eval_test_result.tsv'
@@ -102,7 +102,7 @@ if __name__ == '__main__':
             cm_df_location = report_result_save_location + 'confusion_matrix.tsv'
             eval_logits_location = report_result_save_location + 'eval_logits.tsv'
             
-            format_eval_logits = pd.DataFrame(eval_logits, columns=['0', '1', '2'])
+            format_eval_logits = pd.DataFrame(eval_logits, columns=['0', '1'])
             format_eval_logits.to_csv(eval_logits_location, sep='\t')
         
 
@@ -151,12 +151,12 @@ if __name__ == '__main__':
 
     #saving all results into tsv
 
-    os.makedirs('../20_epochs_large_model/eval_testing/validation_stats/', exist_ok=True)
-    all_best_f1_score.to_csv('../20_epochs_large_model/eval_testing/validation_stats/all_best_overall_f1_score.tsv', sep='\t')
-    all_best_acc.to_csv('../20_epochs_large_model/eval_testing/validation_stats/all_best_dev_acc.tsv', sep='\t')
-    all_best_ind_f1_score.to_csv('../20_epochs_large_model/eval_testing/validation_stats/all_best_ind_f1_score.tsv', sep='\t')
-    all_best_ind_precision.to_csv('../20_epochs_large_model/eval_testing/validation_stats/all_best_ind_precision.tsv', sep='\t')
-    all_best_ind_recall.to_csv('../20_epochs_large_model/eval_testing/validation_stats/all_best_ind_recall.tsv', sep='\t')
+    os.makedirs('../15_epochs_large_model/eval_testing/validation_stats/', exist_ok=True)
+    all_best_f1_score.to_csv('../15_epochs_large_model/eval_testing/validation_stats/all_best_overall_f1_score.tsv', sep='\t')
+    all_best_acc.to_csv('../15_epochs_large_model/eval_testing/validation_stats/all_best_dev_acc.tsv', sep='\t')
+    all_best_ind_f1_score.to_csv('../15_epochs_large_model/eval_testing/validation_stats/all_best_ind_f1_score.tsv', sep='\t')
+    all_best_ind_precision.to_csv('../15_epochs_large_model/eval_testing/validation_stats/all_best_ind_precision.tsv', sep='\t')
+    all_best_ind_recall.to_csv('../15_epochs_large_model/eval_testing/validation_stats/all_best_ind_recall.tsv', sep='\t')
 
     train_val_end_time = time.time()
     
@@ -164,7 +164,7 @@ if __name__ == '__main__':
     print("Everything successfully completed")
     print("Time to complete:", total_time)
 
-    with open('../20_epochs_large_model/eval_testing/validation_stats/time.txt', 'w') as file:
+    with open('../15_epochs_large_model/eval_testing/validation_stats/time.txt', 'w') as file:
         file.write("Time to complete: ")
         file.write(str(total_time))
         file.write(" mins")
