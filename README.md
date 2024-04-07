@@ -22,7 +22,7 @@ The datasets were trained on variants top of the BERT language model \(Devlin et
 The model ensembling methodology is adapted from \(Jayanthi and Gupta, 2021\) method of model ensembling. Various methods of ensembling were experimented, including majority-vote, weighted and unweighted. Ultimately, a weighted average ensemble of RoBERTa<sub>LARGE</sub> models were used. 
 
 ## Results 
-**Performance Metric for Subtask 1a**
+**Performance Metric for Subtask 2b**
 | Task | F1-Score |
 | ---: | :---: |
 | Task 2b | 0.701 | 
@@ -32,5 +32,4 @@ The model ensembling methodology is adapted from \(Jayanthi and Gupta, 2021\) me
 ## Special Thanks
 - **Akshat Gupta**, for being a great project manager and guiding us through NLP from start to finish
 - **Saheed Obitayo**, for being a great manager
-- **J.P. Morgan AI Research** and **Prep for Prep** for the incredible opportunity for the internship
 - The organizers for the 7th SMM4H competition and 2022 COLING conference
